@@ -10,7 +10,7 @@ def validateArgs():
     }
 
     if len(sys.argv) != methods.get(use_method, 0):
-        print("Wrong argument num or usage name!")
+        print("Wrong argument or usage name!")
         print_usage()
         sys.exit()
 
