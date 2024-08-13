@@ -5,16 +5,26 @@ def validateArgs():
     methods = {
         "reverse": 4,
         "copy": 4,
+        "duplicate-contents": 5,
+        "replace-string": 6
     }
 
     if len(sys.argv) != methods.get(use_method, 0):
-        print("Usage:")
-        print(" python3 file_manipulator.py reverse input.txt output.txt")
-        print(" python3 file_manipulator.py copy input.txt output.txt")
+        print("Wrong argument num or usage name!")
+        print_usage()
+        sys.exit()
 
+def print_usage():
+    print("Usage:")
+    print(" python3 file_manipulator.py reverse input.txt output.txt")
+    print(" python3 file_manipulator.py copy input.txt output.txt")
+    print(" python3 file_manipulator.py duplicate-contents input.txt output.txt num")
+    print(" python3 file_manipulator.py replace-string input.txt output.txt needle new_string")
 
 def reverse(contents): return contents[::-1]
 def copy (contents): return contents
+def duplicate_contents(contents, num): return contents * num
+def replace_string(contents, needle, new_string): return contents.replace(needle, new_string) 
 
 def main():
     validateArgs()
@@ -27,6 +37,10 @@ def main():
         new_contents = reverse(contents)
     elif use_method == "copy":
         new_contents = copy(contents)
+    elif use_method == "duplicate-contents":
+        new_contents = duplicate_contents(contents, int(sys.argv[4]))
+    elif use_method == "replace-string":
+        new_contents = replace_string(contents, sys.argv[4], sys.argv[5])
 
     with open(output_file, 'w') as output_f:
         contents = output_f.write(new_contents)
